@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# cython: profile=True
 """
 This package defines classes that simplify bit-wise creation, manipulation and
 interpretation of data.
@@ -33,13 +32,13 @@ InterpretError -- Inappropriate interpretation of binary data.
 ByteAlignError -- Whole byte position or length needed.
 ReadError -- Reading or peeking past the end of a bitstring.
 
-http://python-bitstring.googlecode.com
+https://github.com/scott-griffiths/bitstring
 """
 
 __licence__ = """
 The MIT License
 
-Copyright (c) 2006-2013 Scott Griffiths (scott@griffiths.name)
+Copyright (c) 2006-2016 Scott Griffiths (dr.scottgriffiths@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +59,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-__version__ = "3.1.2"
+__version__ = "3.1.5"
 
 __author__ = "Scott Griffiths"
 
@@ -74,6 +73,7 @@ import os
 import struct
 import operator
 import collections
+import array
 
 byteorder = sys.byteorder
 
@@ -195,10 +195,11 @@ class ConstByteStore(object):
         # then join self on to the end of it.
         store = offsetcopy(store, (self.offset - store.bitlength) % 8)
         assert (store.offset + store.bitlength) % 8 == self.offset % 8
-        if self.offset % 8:
+        bit_offset = self.offset % 8
+        if bit_offset:
             # first do the byte with the join.
-            store.setbyte(-1, (store.getbyte(-1) & (255 ^ (255 >> self.offset)) | \
-                               (self._rawarray[self.byteoffset] & (255 >> self.offset))))
+            store.setbyte(-1, (store.getbyte(-1) & (255 ^ (255 >> bit_offset)) | \
+                               (self._rawarray[self.byteoffset] & (255 >> bit_offset))))
             store._rawarray.extend(self._rawarray[self.byteoffset + 1: self.byteoffset + self.bytelength])
         else:
             store._rawarray.extend(self._rawarray[self.byteoffset: self.byteoffset + self.bytelength])
@@ -731,7 +732,7 @@ class Bits(object):
     def __init__(self, auto=None, length=None, offset=None, **kwargs):
         """Either specify an 'auto' initialiser:
         auto -- a string of comma separated tokens, an integer, a file object,
-                a bytearray, a boolean iterable or another bitstring.
+                a bytearray, a boolean iterable, an array or another bitstring.
 
         Or initialise via **kwargs with one (and only one) of:
         bytes -- raw data as a string, for example read from a binary file.
@@ -787,7 +788,7 @@ class Bits(object):
                     if len(_cache) < CACHE_SIZE:
                         _cache[auto] = x
                     return x
-            if isinstance(auto, Bits):
+            if type(auto) == Bits:
                 return auto
         except TypeError:
             pass
@@ -1242,7 +1243,7 @@ class Bits(object):
         self._datastore = ByteStore(bytearray(0))
 
     def _setauto(self, s, length, offset):
-        """Set bitstring from a bitstring, file, bool, integer, iterable or string."""
+        """Set bitstring from a bitstring, file, bool, integer, array, iterable or string."""
         # As s can be so many different things it's important to do the checks
         # in the correct order, as some types are also other allowed types.
         # So basestring must be checked before Iterable
@@ -1276,6 +1277,10 @@ class Bits(object):
             return
         if isinstance(s, (bytes, bytearray)):
             self._setbytes_unsafe(bytearray(s), len(s) * 8, 0)
+            return
+        if isinstance(s, array.array):
+            b = s.tostring()
+            self._setbytes_unsafe(bytearray(b), len(b) * 8, 0)
             return
         if isinstance(s, numbers.Integral):
             # Initialise with s zero bits.
@@ -1916,9 +1921,13 @@ class Bits(object):
                                            "not multiple of 4 bits.")
         if not length:
             return ''
-        # This monstrosity is the only thing I could get to work for both 2.6 and 3.1.
-        # TODO: Is utf-8 really what we mean here?
-        s = str(binascii.hexlify(self._slice(start, start + length).tobytes()).decode('utf-8'))
+        s = self._slice(start, start + length).tobytes()
+        try:
+            s = s.hex() # Available in Python 3.5
+        except AttributeError:
+            # This monstrosity is the only thing I could get to work for both 2.6 and 3.1.
+            # TODO: Is utf-8 really what we mean here?
+            s = str(binascii.hexlify(s).decode('utf-8'))
         # If there's one nibble too many then cut it off
         return s[:-1] if (length // 4) % 2 else s
 

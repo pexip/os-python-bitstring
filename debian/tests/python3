@@ -1,0 +1,12 @@
+#!/bin/sh
+set -efu
+
+pys="$(py3versions -r 2>/dev/null)"
+
+cp -a ./test "$ADTTMP"
+cd "$ADTTMP"
+
+for py in $pys; do
+	echo "=== $py ==="
+	$py -m unittest discover ./test 2>&1
+done

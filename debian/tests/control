@@ -1,0 +1,7 @@
+Tests: python2
+Depends: python-all,
+         python-bitstring
+
+Tests: python3
+Depends: python3-all,
+         python3-bitstring
