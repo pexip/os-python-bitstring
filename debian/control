@@ -5,6 +5,7 @@ Maintainer: Pexip AS <packaging@pexip.com>
 Build-Depends: debhelper (>= 8.0.0), python-all (>= 2.6.6-3~), python-setuptools
 Standards-Version: 3.9.2
 Homepage: http://python-bitstring.googlecode.com/
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: python-bitstring
 Architecture: all
