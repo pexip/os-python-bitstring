@@ -5,6 +5,7 @@ import sys
 
 sys.path.insert(0, '..')
 import bitstring
+import array
 from bitstring import MmapByteArray
 from bitstring import Bits, BitArray, ConstByteStore, ByteStore
 
@@ -58,8 +59,10 @@ class Creation(unittest.TestCase):
 
     def testCreationFromOctErrors(self):
         s = Bits('0b00011')
-        self.assertRaises(bitstring.InterpretError, s._getoct)
-        self.assertRaises(bitstring.CreationError, s._setoct, '8')
+        with self.assertRaises(bitstring.InterpretError):
+            s.oct
+        with self.assertRaises(bitstring.CreationError):
+            s = Bits('oct=8')
 
     def testCreationFromUintWithOffset(self):
         self.assertRaises(bitstring.Error, Bits, uint=12, length=8, offset=1)
@@ -105,7 +108,8 @@ class Creation(unittest.TestCase):
     def testCreationFromSeErrors(self):
         self.assertRaises(bitstring.CreationError, Bits, se=-5, length=33)
         s = Bits(bin='001000')
-        self.assertRaises(bitstring.InterpretError, s._getse)
+        with self.assertRaises(bitstring.InterpretError):
+            s.se
 
     def testCreationFromUe(self):
         [self.assertEqual(Bits(ue=i).ue, i) for i in range(0, 20)]
@@ -117,7 +121,8 @@ class Creation(unittest.TestCase):
         self.assertRaises(bitstring.CreationError, Bits, ue=-1)
         self.assertRaises(bitstring.CreationError, Bits, ue=1, length=12)
         s = Bits(bin='10')
-        self.assertRaises(bitstring.InterpretError, s._getue)
+        with self.assertRaises(bitstring.InterpretError):
+            s.ue
 
     def testCreationFromBool(self):
         a = Bits('bool=1')
@@ -276,10 +281,10 @@ class Comparisons(unittest.TestCase):
     def testUnorderable(self):
         a = Bits(5)
         b = Bits(5)
-        self.assertRaises(TypeError, a.__lt__, b)
-        self.assertRaises(TypeError, a.__gt__, b)
-        self.assertRaises(TypeError, a.__le__, b)
-        self.assertRaises(TypeError, a.__ge__, b)
+        with self.assertRaises(TypeError): a <  b
+        with self.assertRaises(TypeError): a >  b
+        with self.assertRaises(TypeError): a <=  b
+        with self.assertRaises(TypeError): a >=  b
 
 
 class Subclassing(unittest.TestCase):
@@ -376,3 +381,43 @@ class ModifiedByAddingBug(unittest.TestCase):
         self.assertEqual(a, 100)
         self.assertEqual(b, 101)
         self.assertEqual(c, 201)
+
+
+class WrongTypeBug(unittest.TestCase):
+
+    def testAppendToBits(self):
+        a = Bits(BitArray())
+        with self.assertRaises(AttributeError):
+            a.append('0b1')
+        self.assertEqual(type(a), Bits)
+        b = bitstring.ConstBitStream(bitstring.BitStream())
+        self.assertEqual(type(b), bitstring.ConstBitStream)
+
+
+class InitFromArray(unittest.TestCase):
+
+    def testEmptyArray(self):
+        a = array.array('B')
+        b = Bits(a)
+        self.assertEqual(b.length, 0)
+
+    def testSingleByte(self):
+        a = array.array('B', b'\xff')
+        b = Bits(a)
+        self.assertEqual(b.length, 8)
+        self.assertEqual(b.hex, 'ff')
+
+    def testSignedShort(self):
+        a = array.array('h')
+        a.append(10)
+        a.append(-1)
+        b = Bits(a)
+        self.assertEqual(b.length, 32)
+        self.assertEqual(b.bytes, a.tostring())
+
+    def testDouble(self):
+        a = array.array('d', [0.0, 1.0, 2.5])
+        b = Bits(a)
+        self.assertEqual(b.length, 192)
+        c, d, e = b.unpack('3*floatne:64')
+        self.assertEqual((c, d, e), (0.0, 1.0, 2.5))
