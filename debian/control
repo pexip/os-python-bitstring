@@ -1,21 +1,72 @@
 Source: python-bitstring
-Section: python
-Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
-Build-Depends: debhelper (>= 8.0.0), python-all (>= 2.6.6-3~), python-setuptools
-Standards-Version: 3.9.2
-Homepage: http://python-bitstring.googlecode.com/
+XSBC-Pexip-Original-Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+XSBC-Pexip-Original-Uploaders: Ghislain Antony Vaillant <ghisvail@gmail.com>
+Section: python
+Testsuite: autopkgtest
+Priority: optional
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               python-all,
+               python-setuptools,
+               python3-all,
+               python3-setuptools,
+               python-sphinx
+Standards-Version: 3.9.8
+Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/python-bitstring.git
+Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/python-bitstring.git
+Homepage: http://scott-griffiths.github.io/bitstring/
+X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.2
 XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: python-bitstring
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}
-Description: Simple construction, analysis and modification of binary data.
- bitstring is a pure Python module designed to help make the creation and 
+Depends: ${misc:Depends},
+         ${python:Depends}
+Suggests: python-bitstring-doc
+Description: Python module for manipulation of binary data (Python 2)
+ Bitstring is a pure Python module designed to help make the creation and 
  analysis of binary data as simple and natural as possible.
  .
  Bitstrings can be constructed from integers (big and little endian), hex, 
  octal, binary, strings or files. They can be sliced, joined, reversed, 
- inserted into, overwritten, etc. with simple functions or slice notation.
- They can also be read from, searched and replaced, and navigated in,
- similar to a file or stream.
+ inserted into, overwritten, etc. with simple functions or slice notation. 
+ They can also be read from, searched and replaced, and navigated in, similar 
+ to a file or stream.
+ .
+ This package provides the Python 2 version of the module.
+
+Package: python3-bitstring
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends}
+Suggests: python-bitstring-doc
+Description: Python module for manipulation of binary data (Python 3)
+ Bitstring is a pure Python module designed to help make the creation and 
+ analysis of binary data as simple and natural as possible.
+ .
+ Bitstrings can be constructed from integers (big and little endian), hex, 
+ octal, binary, strings or files. They can be sliced, joined, reversed, 
+ inserted into, overwritten, etc. with simple functions or slice notation. 
+ They can also be read from, searched and replaced, and navigated in, similar 
+ to a file or stream.
+ .
+ This package provides the Python 3 version of the module.
+
+Package: python-bitstring-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends},
+         ${sphinxdoc:Depends}
+Description: Python module for manipulation of binary data (documentation)
+ Bitstring is a pure Python module designed to help make the creation and 
+ analysis of binary data as simple and natural as possible.
+ .
+ Bitstrings can be constructed from integers (big and little endian), hex, 
+ octal, binary, strings or files. They can be sliced, joined, reversed, 
+ inserted into, overwritten, etc. with simple functions or slice notation. 
+ They can also be read from, searched and replaced, and navigated in, similar 
+ to a file or stream.
+ .
+ This package provides the common documentation.

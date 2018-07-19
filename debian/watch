@@ -1,2 +1,2 @@
 version=3
-https://pypi.python.org/packages/source/b/bitstring/bitstring-(.*)\.zip
+https://github.com/scott-griffiths/bitstring/tags .*/bitstring-(\d\S*)\.tar\.gz

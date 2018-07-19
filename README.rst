@@ -14,8 +14,7 @@ similar to a file or stream.
 bitstring is open source software, and has been released under the MIT
 licence.
 
-This version supports Python 2.6 and later (including Python 3).
-For Python 2.4 and 2.5 you should instead download version 1.0.
+This module works in both Python 2.7 and Python 3.
 
 Documentation
 -------------
@@ -92,8 +91,8 @@ The 400+ unit tests should all pass for Python 2.6 and later.
 ----
 
 The bitstring module has been released as open source under the MIT License.
-Copyright (c) 2013 Scott Griffiths
+Copyright (c) 2016 Scott Griffiths
 
-For more information see the project's homepage on Google Code:
-<http://python-bitstring.googlecode.com>
+For more information see the project's homepage on GitHub:
+<https://github.com/scott-griffiths/bitstring>
 
