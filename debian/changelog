@@ -1,3 +1,9 @@
+python-bitstring (3.1.5-1pexip2) pexip; urgency=medium
+
+  * Rebuild in buster environment
+
+ -- Steve McIntyre <steve.mcintyre@pexip.com>  Thu, 16 Jul 2020 03:24:41 +0000
+
 python-bitstring (3.1.5-1pexip1) pexip; urgency=medium
 
   * Migrate to Stretch
