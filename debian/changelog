@@ -1,3 +1,9 @@
+python-bitstring (3.1.5-1pexip3) pexip; urgency=medium
+
+  * Bump, in order to introduce python3 package 
+
+ -- Gregorio Di Stefano <gregorio@pexip.com>  Thu, 02 Sep 2021 15:32:21 +0000
+
 python-bitstring (3.1.5-1pexip2) pexip; urgency=medium
 
   * Rebuild in buster environment
