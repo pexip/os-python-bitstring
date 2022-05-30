@@ -18,7 +18,7 @@ Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/python-bitstring
 Homepage: http://scott-griffiths.github.io/bitstring/
 X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.2
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 
 Package: python-bitstring
 Architecture: all
