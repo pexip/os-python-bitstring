@@ -7,19 +7,19 @@
 Features
 --------
 
-* Supports Python 2.6 and later (including Python 3).
+* Supports Python 2.7 and Python 3.
 * Rich API - chances are that whatever you want to do there's a simple and elegant way of doing it.
 * Bit level slicing, joining, searching, replacing and more.
 * Create bitstrings from hex, octal, binary, files, formatted strings, bytes, integers and floats of different endiannesses.
 * Powerful binary packing and unpacking functions.
 * Read from and interpret bitstrings as streams of binary data.
 
-Download
---------
+Installation and Download
+-------------------------
 
-To download the module, as well as for defect reports, enhancement requests and Subversion repository browsing go to the project's home on GitHub: http://scott-griffiths.github.io/bitstring/
+To install just ``pip install bitstring``.
 
-You may also be able to use just ``easy_install bitstring``.
+To download the module, as well as for defect reports, enhancement requests and Git repository browsing go to the project's home on GitHub: http://scott-griffiths.github.io/bitstring/
 
 Documentation
 -------------
@@ -38,10 +38,7 @@ The reference section has a complete list of all the classes, methods, attribute
 
 The manual is also available as a PDF:
 
-* `Latest manual (PDF) <http://python-bitstring.googlecode.com/svn/trunk/doc/bitstring_manual.pdf>`_
-* `Manual for version 2 (PDF) <http://python-bitstring.googlecode.com/svn/tags/bitstring-2.2.0/doc/bitstring_manual.pdf>`_
-* `Manual for version 1.0 (PDF) <http://python-bitstring.googlecode.com/svn/tags/bitstring-1.0.2/bitstring_manual.pdf>`_
-
+* `Latest manual (PDF) <https://github.com/scott-griffiths/bitstring/raw/master/doc/bitstring_manual.pdf>`_
 
 Index and search
 ----------------

@@ -8,6 +8,96 @@ Release Notes
 Full Version History
 ====================
 
+May 5th 2020: version 3.1.7 released
+-------------------------------------
+This is a maintenance release with a few bug fixes plus an experimental
+feature to allow bits to be indexed in the opposite direction.
+
+* Fixing del not working correctly when stop value negative (Issue 201)
+* Removed deprecated direct import of ABC from collections module (Issue 196)
+* Tested and added explicit support for Python 3.7 and 3.8. (Issue 193)
+* Fixing a few stale links to documentation. (Issue 194)
+* Allowing initialisation with an io.BytesIO object. (Issue 189)
+
+Experimental LSB0 mode
+----------------------
+This feature allows bitstring to use Least Significant Bit Zero
+(LSB0) bit numbering; that is the final bit in the bitstring will
+be bit 0, and the first bit will be bit (n-1), rather than the
+other way around. LSB0 is a more natural numbering
+system in many fields, but is the opposite to Most Significant Bit
+Zero (MSB0) numbering which is the natural option when thinking of
+bitstrings as standard Python containers.
+
+To switch from the default MSB0, use the module level function
+
+    >>> bitstring.set_lsb0(True)
+
+Getting and setting bits should work in this release, as will some
+other methods. Many other methods are not tested yet and might not
+work as expected. This is mostly a release to get feedback before
+finalising the interface.
+
+Slicing is still done with the start bit smaller than the end bit.
+For example:
+
+    >>> s = Bits('0b000000111')
+    >>> s[0:5]
+    Bits('0b00111')
+    >>> s[0]
+    True
+
+Negative indices work as (hopefully) you'd expect, with the first stored
+bit being `s[-1]` and the final stored bit being `s[-n]`.
+
+See https://github.com/scott-griffiths/bitstring/issues/156 for
+discussions and to add any further comments.
+
+July 9th 2019: version 3.1.6 released
+-------------------------------------
+A long overdue maintenace release with some fixes.
+
+* Fixed immutability bug. Bug 176. 
+* Fixed failure of `__contains__` in some circumstances. Bug 180.
+* Better handling of open files. Bug 186.
+* Better Python 2/3 check.
+* Making unit tests easier to run.
+* Allowing length of 1 to be specified for bools. (Thanks to LemonPi)
+* Documentation fixes.
+* Added experimental (and undocumented) command-line mode.
+
+May 17th 2016: version 3.1.5 released
+-------------------------------------
+
+* Support initialisation from an array.
+* Added a separate LICENSE file.
+
+March 19th 2016: version 3.1.4 released
+---------------------------------------
+This is another bug fix release.
+
+* Fix for bitstring types when created directly from other bitstring types.
+* Updating contact, website details.
+
+March 4th 2014: version 3.1.3 released
+--------------------------------------
+This is another bug fix release.
+
+* Fix for problem with prepend for bitstrings with byte offsets in their data store.
+
+April 18th 2013: version 3.1.2 released
+---------------------------------------
+This is another bug fix release.
+
+* Fix for problem where unpacking bytes would by eight times too long
+
+March 21st 2013: version 3.1.1 released
+---------------------------------------
+This is a bug fix release.
+
+* Fix for problem where concatenating bitstrings sometimes modified method's arguments
+
+
 February 26th 2013: version 3.1.0 released
 ------------------------------------------
 This is a minor release with a couple of new features and some bug fixes.
@@ -79,7 +169,7 @@ Stepping in slices has conventional meaning
 
 The step parameter in ``__getitem__``, ``__setitem__`` and ``__delitem__`` used to act
 as a multiplier for the start and stop parameters. No one seemed to use it
-though and so it has now reverted to the convential meaning for containers.
+though and so it has now reverted to the conventional meaning for containers.
 
 If you are using step then recoding is simple: ``s[a:b:c]`` becomes ``s[a*c:b*c]``.
 
@@ -229,7 +319,7 @@ most of which won't be noticed by the end user. Some things you might see are:
   around is either to get a 64-bit Python, or just stick with version 2.0.
 * The ``ConstBitArray`` and ``ConstBitStream`` classes no longer copy byte data when
   a slice or a read takes place, they just take a reference. This is mostly
-  a very nice optimisation, but there are occassions where it could have an
+  a very nice optimisation, but there are occasions where it could have an
   adverse effect. For example if a very large bitstring is created, a small
   slice taken and the original deleted. The byte data from the large
   bitstring would still be retained in memory.
@@ -781,7 +871,7 @@ November 24th 2009: version 1.1.0 for Python 2.6 and 3.x released
 -----------------------------------------------------------------
 
 Note that this version will not work for Python 2.4 or 2.5. There may be an
-update for these Python versions some time next year, but it's not a priorty
+update for these Python versions some time next year, but it's not a priority
 quite yet. Also note that only one version is now provided, which works for
 Python 2.6 and 3.x (done with the minimum of hackery!)
 
@@ -845,7 +935,7 @@ for BitStrings of length 32 or 64 bits. ::
 'bytes' token reintroduced
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This token returns a bytes object (equivalent to a str in Python 2.6). ::
+This token returns a bytes object (equivalent to a str in Python 2.7). ::
 
     >>> s = BitString('0x010203')
     >>> s.unpack('bytes:2, bytes:1')
@@ -1205,7 +1295,7 @@ is equivalent to ::
 bytealigned defaults to False, and is at the end of the parameter list
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Functions that have a bytealigned paramater have changed so that it now
+Functions that have a bytealigned parameter have changed so that it now
 defaults to False rather than True. Also its position in the parameter list
 has changed to be at the end. You may need to recode slightly (sorry!)
 
