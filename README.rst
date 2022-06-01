@@ -1,6 +1,6 @@
-================
-bitstring module
-================
+
+
+.. image:: /doc/bitstring_logo_small.png
 
 **bitstring** is a pure Python module designed to help make
 the creation and analysis of binary data as simple and natural as possible.
@@ -16,31 +16,27 @@ licence.
 
 This module works in both Python 2.7 and Python 3.
 
-Documentation
--------------
-The manual for the bitstring module is available here
-<http://packages.python.org/bitstring>. It contains a walk-through of all
-the features and a complete reference section.
-
-It is also available as a PDF as part of the source download.
-
 Installation
 ------------
-If you have downloaded and unzipped the package then you need to run the
+
+Probably all you need to do is::
+
+     pip install bitstring     
+
+Alternatively if you have downloaded and unzipped the package then you need to run the
 ``setup.py`` script with the 'install' argument::
 
      python setup.py install
 
 You may need to run this with root privileges on Unix-like systems.
 
+Documentation
+-------------
+The manual for the bitstring module is available here
+<https://bitstring.readthedocs.org>. It contains a walk-through of all
+the features and a complete reference section.
 
-If you haven't yet downloaded the package then you can just try::
-
-     easy_install bitstring
-
-or ::
-
-     pip install bitstring     
+It is also available as a PDF at <https://readthedocs.org/projects/bitstring/downloads/pdf/latest/>.
 
 
 Simple Examples
@@ -86,12 +82,15 @@ Searching, inserting and deleting::
 Unit Tests
 ----------
 
-The 400+ unit tests should all pass for Python 2.6 and later.
+The 500+ unit tests should all pass for Python 2.7 and later. To run them, from the `test`
+directory run::
+
+     python -m unittest discover
 
 ----
 
 The bitstring module has been released as open source under the MIT License.
-Copyright (c) 2016 Scott Griffiths
+Copyright (c) 2008-2020 Scott Griffiths
 
 For more information see the project's homepage on GitHub:
 <https://github.com/scott-griffiths/bitstring>

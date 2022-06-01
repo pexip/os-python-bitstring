@@ -1,3 +1,37 @@
+python-bitstring (3.1.7-2) unstable; urgency=medium
+
+  * Team upload
+  * Switch to debhelper 13
+  * Set Rules-Requires-Root: no
+  * Fix invalid escape sequences (Closes: #963551)
+  * Drop trailing whitespace from debian/control
+  * Update debian/copyright
+  * Drop unnecessary Testsuite: autopkgtest field
+  * Replace deprecated ADTTMP variable with AUTOPKGTEST_TMP
+  * Bump Standards-Version to 4.5.0, no changes
+
+ -- Graham Inggs <ginggs@debian.org>  Sun, 01 Nov 2020 12:18:49 +0000
+
+python-bitstring (3.1.7-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream release (Closes: #972733, #973021)
+  * Refresh fix-testsuite-discovery.patch
+
+ -- Graham Inggs <ginggs@debian.org>  Sat, 31 Oct 2020 09:20:30 +0000
+
+python-bitstring (3.1.5-2) unstable; urgency=medium
+
+  * Team upload.
+  * Drop python2 support; Closes: #937613
+  * debian/control
+    - use python3-sphinx to build doc
+    - drop obsolete X-P-V fields
+    - update Vcs-* to point to salsa.d.o
+    - bump Standards-Version to 4.4.1 (no changes needed)
+
+ -- Sandro Tosi <morph@debian.org>  Sun, 06 Oct 2019 17:06:01 -0400
+
 python-bitstring (3.1.5-1pexip4) pexip; urgency=medium
 
   * Bump, in order to introduce python3 package 

@@ -1,0 +1,39 @@
+Description: Fix invalid escape sequences
+Forwarded: https://github.com/scott-griffiths/bitstring/pull/206
+Bug-Debian: https://bugs.debian.org/963551
+Author: Matthias Urlichs <matthias@urlichs.de>
+Last-Update: 2020-06-23
+
+--- a/bitstring.py
++++ b/bitstring.py
+@@ -11,13 +11,13 @@
+ BitStream -- A mutable container with streaming methods.
+ 
+                       Bits (base class)
+-                     /    \
+- + mutating methods /      \ + streaming methods
+-                   /        \
++                     //    \\
++ + mutating methods //      \\ + streaming methods
++                   //        \\
+               BitArray   ConstBitStream
+-                   \        /
+-                    \      /
+-                     \    /
++                   \\        //
++                    \\      //
++                     \\    //
+                     BitStream
+ 
+ Functions:
+--- a/doc/conf.py
++++ b/doc/conf.py
+@@ -215,7 +215,7 @@
+ \\cleardoublepage
+ """ % release
+ 
+-latex_elements = {'preamble': '\setcounter{tocdepth}{2}\definecolor{VerbatimBorderColor}{rgb}{1,1,1}',
++latex_elements = {'preamble': '\\setcounter{tocdepth}{2}\\definecolor{VerbatimBorderColor}{rgb}{1,1,1}',
+                   'fncychap': '\\usepackage[Sonny]{fncychap}',
+                   'maketitle': titlepage,
+                   'papersize': 'a4paper',

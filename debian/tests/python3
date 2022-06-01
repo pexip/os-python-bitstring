@@ -3,8 +3,8 @@ set -efu
 
 pys="$(py3versions -r 2>/dev/null)"
 
-cp -a ./test "$ADTTMP"
-cd "$ADTTMP"
+cp -a ./test "$AUTOPKGTEST_TMP"
+cd "$AUTOPKGTEST_TMP"
 
 for py in $pys; do
 	echo "=== $py ==="
