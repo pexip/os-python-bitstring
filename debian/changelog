@@ -1,3 +1,9 @@
+python-bitstring (3.1.7-2pexip3) pexip-bullseye; urgency=medium
+
+  * Bullseye rebuild for ARM64 inclusion
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Mon, 05 Sep 2022 10:35:15 +0100
+
 python-bitstring (3.1.7-2pexip2) pexip-bullseye; urgency=medium
 
   * Main bullseye build
