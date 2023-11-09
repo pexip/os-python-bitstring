@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 Vcs-Browser: https://salsa.debian.org/science-team/python-bitstring
 Vcs-Git: https://salsa.debian.org/science-team/python-bitstring.git
 Homepage: http://scott-griffiths.github.io/bitstring/
-XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: python3-bitstring
 Architecture: all
