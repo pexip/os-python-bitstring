@@ -1,3 +1,9 @@
+python-bitstring (3.1.7-2pexip4) pexip-bookworm; urgency=medium
+
+  * Initial bookworm build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 16 Nov 2023 10:22:02 +0000
+
 python-bitstring (3.1.7-2pexip3) pexip-bullseye; urgency=medium
 
   * Bullseye rebuild for ARM64 inclusion
