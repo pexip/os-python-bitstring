@@ -1,3 +1,9 @@
+python-bitstring (3.1.7-2pexip5) pexip-bookworm; urgency=medium
+
+  * Bookworm build for product distribution
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Sat, 09 Dec 2023 22:57:16 +0000
+
 python-bitstring (3.1.7-2pexip4) pexip-bookworm; urgency=medium
 
   * Initial bookworm build
