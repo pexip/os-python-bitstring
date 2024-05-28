@@ -4,9 +4,6 @@
 #export DH_VERBOSE=1
 
 export PYBUILD_NAME=bitstring
-export PYBUILD_BEFORE_TEST=cp -r {dir}/test {build_dir}
-export PYBUILD_TEST_ARGS={build_dir}/test
-export PYBUILD_AFTER_TEST=rm -rf {build_dir}/test
 
 %:
 	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
@@ -14,7 +11,7 @@ export PYBUILD_AFTER_TEST=rm -rf {build_dir}/test
 override_dh_auto_build:
 	dh_auto_build
 	PYTHONPATH=. http_proxy='127.0.0.1:9' \
-		sphinx-build -N -b html doc build/html
+		sphinx-build -N -D html_theme=default -b html doc build/html
 
 override_dh_installchangelogs:
-	dh_installchangelogs release_notes.txt
+	dh_installchangelogs release_notes.md

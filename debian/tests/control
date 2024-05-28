@@ -1,3 +1,7 @@
 Tests: python3
 Depends: python3-all,
-         python3-bitstring
+         python3-bitstring,
+         python3-gfloat,
+         python3-hypothesis,
+         python3-pytest,
+         python3-pytest-benchmark,

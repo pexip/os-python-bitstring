@@ -1,3 +1,89 @@
+python-bitstring (4.2.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add python3-pytest-benchmark to build-depends and test/control depends to
+    enable new tests to run
+  * Update d/rules install changelogs rule to use release_notes.md vice
+    release_notes.txt to match upstream change
+
+ -- Scott Kitterman <scott@kitterman.com>  Tue, 28 May 2024 15:03:34 -0400
+
+python-bitstring (4.2.2-1) unstable; urgency=medium
+
+  * New upstream release
+    - Delete d/p/001-Missing-gfloat.formats-import.patch, incorporated
+      upstream
+  * Bump standards-version to 4.7.0 without further change
+
+ -- Scott Kitterman <scott@kitterman.com>  Sat, 11 May 2024 00:26:56 -0400
+
+python-bitstring (4.2.1-1) unstable; urgency=medium
+
+  * New upstream release
+    - Delete 0001-delete-mybinder.org-remote-refs-privacy-breach-logo.patch,
+      mybinder.org refs removed upstream
+  * Add build-depends and autopkgtest depends on python3-gfloat,
+    python3-hypothesis, and python3-pytest
+  * Add d/p/0001-Missing-gfloat.formats-import.patch to fix failing tests
+  * Update d/tests/python3 for new pytest test invocation
+
+ -- Scott Kitterman <scott@kitterman.com>  Thu, 09 May 2024 08:04:15 -0400
+
+python-bitstring (4.1.4-1) unstable; urgency=medium
+
+  * New upstream release
+    - Refresh patches
+
+ -- Scott Kitterman <scott@kitterman.com>  Sat, 06 Jan 2024 11:14:13 -0500
+
+python-bitstring (4.1.1-1) unstable; urgency=medium
+
+  * Update homepage to github.com, github.io page is 404
+  * Delete d/p/0002-Remove-bitarray-version-check.patch, incorporated upstream
+  * New upstream release
+    - Refresh patches
+
+ -- Scott Kitterman <scott@kitterman.com>  Wed, 23 Aug 2023 13:01:38 -0400
+
+python-bitstring (4.1.0-1) unstable; urgency=medium
+
+  * Add d/source/options extend-diff-ignore to fix dpkg-source failure due to
+    local changes (python package metadata regeneration) (Closes: #1046907)
+  * Mark python-bitstrin-doc Multi-Arch foreign
+  * New upstream release (Closes: #1039932)
+    - Refresh patches
+  * Add python3-bitarray to build-depends
+  * Add d/p/0002-Remove-bitarray-version-check.patch, since there's no
+    guarantee in Debian the packages will be uploaded in lock step
+
+ -- Scott Kitterman <scott@kitterman.com>  Sun, 20 Aug 2023 01:26:43 -0400
+
+python-bitstring (4.0.2-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Update watch file format version to 4.
+  * Update standards version to 4.6.1, no changes needed.
+
+  [ Scott Kitterman ]
+  * Agreed maintainer change from Debian Science Maintainers to Debian Python
+    Team
+    - Add myself to Uploaders
+    - Update Vcs-*
+  * New upstream release
+  * Remove debian/patches/fix-invalid-escape-sequences.patch, resolved
+    upstream, and debian/patches/fix-testsuite-discovery.patch, will rework
+    tests to work without it
+  * Add pybuild-plugin-pyproject to build-depends
+  * Update debian/rules so tests are still run
+  * Override sphinx documentation html_theme to use sphinx default since
+    upstream defined theme is not available in Debian
+  * Update autopkgtest to work without upstream patches
+  * Add d/p/0001-delete-mybinder.org-remote-refs-privacy-breach-logo.patch to
+    address issue with remote logo downloads
+  * Bump standards-version to 4.6.2 without further change
+
+ -- Scott Kitterman <scott@kitterman.com>  Wed, 28 Jun 2023 17:06:38 -0400
+
 python-bitstring (3.1.7-2) unstable; urgency=medium
 
   * Team upload
