@@ -1,6 +1,8 @@
-include test/test.m1v
-include test/smalltestfile
-include release_notes.txt
-include README.rst
+include tests/test.m1v
+include tests/smalltestfile
+include tests/__init__.py
+include release_notes.md
+include README.md
+include bitstring/py.typed
 prune doc
 include LICENSE

@@ -3,7 +3,7 @@
 Optimisation Techniques
 =======================
 
-The :mod:`bitstring` module aims to be as fast as reasonably possible, and although there is more work to be done optimising some operations it is currently quite well optimised without resorting to C extensions.
+The :mod:`bitstring` module aims to be as fast as reasonably possible, and since version 4.1 has used the ``bitarray`` C extension to power its core.
 
 There are however some pointers you should follow to make your code efficient, so if you need things to run faster then this is the section for you.
 
@@ -16,15 +16,15 @@ When parsing a bitstring one way to write code is in the following style::
     height = s.read(12).uint
     flags = s.read(4).bin
  
-This works fine, but is not very quick. The problem is that the call to :meth:`~Bits.read` constructs and returns a new bitstring, which then has to be interpreted. The new bitstring isn't used for anything else and so creating it is wasted effort. Instead it is better to use a string parameter that does the read and interpretation together::
+This works fine, but is not very quick. The problem is that the call to :meth:`~ConstBitStream.read` constructs and returns a new bitstring, which then has to be interpreted. The new bitstring isn't used for anything else and so creating it is wasted effort. Instead it is better to use a string parameter that does the read and interpretation together::
 
-    width = s.read('uint:12')
-    height = s.read('uint:12')
-    flags = s.read('bin:4')
+    width = s.read('uint12')
+    height = s.read('uint12')
+    flags = s.read('bin4')
  
 This is much faster, although probably not as fast as the combined call::
 
-    width, height, flags = s.readlist('uint:12, uint:12, bin:4')
+    width, height, flags = s.readlist('uint12, uint12, bin4')
  
 Choose the simplest class you can
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -41,7 +41,11 @@ One anti-pattern to watch out for is using ``+=`` on a :class:`Bits` object. For
  for i in range(1000):
      s += '0xab'
     
-Now this is inefficient for a few reasons, but the one I'm highlighting is that as the immutable bitstring doesn't have an ``__iadd__`` special method the ordinary ``__add__`` gets used instead. In other words ``s += '0xab'`` gets converted to ``s = s + '0xab'``, which creates a new :class:`Bits` from the old on every iteration. This isn't what you'd want or possibly expect. If ``s`` had been a :class:`BitArray` then the addition would have been done in-place, and have been much more efficient.
+Now this is inefficient for a few reasons, but the one I'm highlighting is that as the immutable bitstring doesn't have an ``__iadd__`` special method the ordinary ``__add__`` gets used instead.
+In other words ``s += '0xab'`` gets converted to ``s = s + '0xab'``, which creates a new :class:`Bits` from the old on every iteration. This isn't what you'd want or possibly expect. If ``s`` had been a :class:`BitArray` then the addition would have been done in-place, and have been much more efficient.
+
+Another problem is that the string ``0xab`` needs to be converted to a bitstring on every iteration.
+There are cacheing mechanisms that will make this faster after the first time, but if there is a constant conversion happening in a loop like this it is better to hoist it out of the loop by declaring ``ab = Bits('0xab')`` first and then adding this object instead of the string.
 
 
 Use dedicated functions for bit setting and checking
@@ -69,4 +73,11 @@ it's better to say ::
      do_something()
      
 
- 
+If the pattern of setting or getting can be expressed as a ``range`` then it is much faster to pass in the range object so that it can be used to optimize the pattern. For example, instead of ::
+
+ for i in range(0, len(s), 2):
+     s.set(True, i)
+
+you should just write ::
+
+ s.set(True, range(0, len(s), 2))

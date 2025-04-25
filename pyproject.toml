@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bitstring"
+version = "4.2.3"
+authors = [
+  { name="Scott Griffiths", email="dr.scottgriffiths@gmail.com" },
+]
+description = "Simple construction, analysis and modification of binary data."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["binary", "bitarray", "bitvector", "bitfield"]
+dependencies = [
+  "bitarray >= 2.9.0, < 3.0.0",
+]
+
+[project.urls]
+homepage = "https://github.com/scott-griffiths/bitstring"
+documentation = "https://bitstring.readthedocs.io/"
+
+[tool.setuptools]
+packages = ["bitstring"]
