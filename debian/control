@@ -1,19 +1,26 @@
 Source: python-bitstring
 Maintainer: Pexip AS <packaging@pexip.com>
-XSBC-Pexip-Original-Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
-XSBC-Pexip-Original-Uploaders: Ghislain Antony Vaillant <ghisvail@gmail.com>
+XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.org>
+XSBC-Pexip-Original-Uploaders: Scott Kitterman <scott@kitterman.com>,
+           Ghislain Antony Vaillant <ghisvail@gmail.com>
 Section: python
 Priority: optional
 Build-Depends: debhelper-compat (= 13),
                dh-python,
+               pybuild-plugin-pyproject,
                python3-all,
+               python3-bitarray,
+               python3-gfloat <!nocheck>,
+               python3-hypothesis <!nocheck>,
                python3-setuptools,
-               python3-sphinx
-Standards-Version: 4.5.0
+               python3-sphinx,
+               python3-pytest <!nocheck>,
+               python3-pytest-benchmark <!nocheck>,
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
-Vcs-Browser: https://salsa.debian.org/science-team/python-bitstring
-Vcs-Git: https://salsa.debian.org/science-team/python-bitstring.git
-Homepage: http://scott-griffiths.github.io/bitstring/
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-bitstring
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-bitstring.git
+Homepage: https://github.com/scott-griffiths/bitstring
 XS-Pexip-Upstream: http://deb.debian.org/debian/ trixie
 
 Package: python3-bitstring
@@ -36,6 +43,7 @@ Description: Python module for manipulation of binary data (Python 3)
 Package: python-bitstring-doc
 Architecture: all
 Section: doc
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${sphinxdoc:Depends}
 Description: Python module for manipulation of binary data (documentation)

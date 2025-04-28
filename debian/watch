@@ -1,2 +1,2 @@
-version=3
+version=4
 https://github.com/scott-griffiths/bitstring/tags .*/bitstring-(\d\S*)\.tar\.gz
